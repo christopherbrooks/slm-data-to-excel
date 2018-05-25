@@ -90,3 +90,5 @@ with open(OUTPUT_THIRD, "w", newline="") as third_csv,\
                     octave_band(third_octave_values)
 
                 octave_writer.writerow(octave_row)
+
+print('Files written to', os.path.realpath(args.output_dir))
