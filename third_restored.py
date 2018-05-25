@@ -1,10 +1,11 @@
 import os
 import csv
 import numpy as np
+import sys
 
-INPUT_DIR = "K:/Projects/Gardner Russo Gardner Offices.2018103/SLM data"
-OUTPUT_THIRD = "K:/Projects/Gardner Russo Gardner Offices.2018103/SLM data/third_octave.csv"
-OUTPUT_OCTAVE = "K:/Projects/Gardner Russo Gardner Offices.2018103/SLM data/octave.csv"
+INPUT_DIR = sys.argv[1]
+OUTPUT_THIRD = os.path.join(INPUT_DIR, 'third_octave.csv')
+OUTPUT_OCTAVE = os.path.join(INPUT_DIR, 'octave.csv')
 
 line_info = [
     (172, "Leq_third", 11 ), 
@@ -33,7 +34,6 @@ def octave_band(third_octave_values):
 filename = os.listdir(INPUT_DIR)[0]
 with open(os.path.join(INPUT_DIR, filename), encoding="latin-1") as f:
     for line in f:
-        print(line)
         if get_line_number(line) == 174:
             third_octave_band = ['','', "dBA"] + preprocess(line)[1:]
             break
