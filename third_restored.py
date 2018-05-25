@@ -42,6 +42,12 @@ with open(os.path.join(args.input_dir, filename), encoding="latin-1") as f:
             third_octave_band = ['','', "dBA"] + preprocess(line)[1:]
             break
 
+try:
+    print('Third octave band:', third_octave_band)
+except ValueError:
+    print('Line 174 not found in', filename, 'for definition of third octave band')
+    exit()
+
 with open(OUTPUT_THIRD, "w", newline="") as third_csv,\
         open(OUTPUT_OCTAVE, "w", newline="") as octave_csv:
     third_writer = csv.writer(third_csv)
@@ -51,11 +57,14 @@ with open(OUTPUT_THIRD, "w", newline="") as third_csv,\
     octave_header += [third_octave_band[i] for i in range(4, len(third_octave_band), 3)]
 
     for third_octave_line, category, dBA_line in line_info:
+        print('Generating data for', category)
         third_writer.writerow(third_octave_band)
         octave_writer.writerow(octave_header)
 
         for file_name in os.listdir(args.input_dir):
-            with open(os.path.join(args.input_dir,file_name), encoding="latin-1") as slmdl:
+            print('Generating data from', file_name)
+            path = os.path.join(args.input_dir, file_name)
+            with open(path, encoding="latin-1") as slmdl:
 
                 for line in slmdl:
                     line_number = get_line_number(line)
