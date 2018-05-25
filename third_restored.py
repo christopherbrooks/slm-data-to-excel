@@ -40,7 +40,6 @@ def octave_band(third_octave_values):
     assert len(third_octave_values) % 3 == 0
     return [dB_add(n) for n in range(0, len(third_octave_values), 3)]
 
-
 filename = os.listdir(args.input_dir)[0]
 with open(os.path.join(args.input_dir, filename), encoding="latin-1") as f:
     for line in f:
@@ -81,6 +80,7 @@ with open(OUTPUT_THIRD, "w", newline="") as third_csv,\
                     if line_number == third_octave_line:
                         third_octave_values = preprocess(line)[1:]
                     if line_number == dBA_line:
+
                         dBA = preprocess(line.replace('Hz', ''))[1]
 
                 third_octave_row = [file_name, category, dBA
