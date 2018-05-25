@@ -49,7 +49,7 @@ with open(os.path.join(args.input_dir, filename), encoding="latin-1") as f:
 
 try:
     print('Third octave band:', third_octave_band)
-except ValueError:
+except NameError:
     print('Line 174 not found in', filename,
           'for definition of third octave band')
     exit()
@@ -90,3 +90,5 @@ with open(OUTPUT_THIRD, "w", newline="") as third_csv,\
                     octave_band(third_octave_values)
 
                 octave_writer.writerow(octave_row)
+
+print('Files written to', os.path.realpath(args.output_dir))
